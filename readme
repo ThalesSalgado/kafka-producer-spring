@@ -1,0 +1,25 @@
+# Kafka Producer Test SpringBoot
+Aplicação básica de um produtor que envia mensagem para tópico 'test' do Kafka.
+
+## Pre-requisitos:
+ 1. Fazer download do kafka (https://www.apache.org/dyn/closer.cgi?path=/kafka/2.1.0/kafka_2.11-2.1.0.tgz) 
+ 2. Startar servidor ZooKeeper (na pasta descompactada do kafka):
+    > bin/zookeeper-server-start.sh config/zookeeper.properties
+ 3. Startar servidor do Kafka:
+    > bin/kafka-server-start.sh config/server.properties
+ 4. Criar um tópico:
+    > bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+ 4.1 Verificar listando os topicos:
+    > bin/kafka-topics.sh --list --zookeeper localhost:2181
+ 5. Criando consumidor para verificar recepção da mensagem enviada para o tópico:
+    > bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+ 
+### Instruções:
+Faça o passo de startar o servidor Kafka e criar o tópico. Em seguida, rode a aplicação (para acompanhar, rode em debug) e faça o passo de criar o consumidor do tópico para acompanhar a recepção das mensagens. Finalmente, realize um POST no end-point "/test/send-message" passando a mensagem no corpo da requisição via Json:
+{
+    "msg" = "teste envio msg para topico test"
+}
+Verifique o terminal que esteja rodando o consumidor do tópico test para observar a nova mensagem no tópico.
+
+
+
